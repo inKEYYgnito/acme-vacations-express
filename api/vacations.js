@@ -4,11 +4,11 @@ const router = express.Router()
 const validator = (item, items) => {
     const { startDate, endDate } = item
 
-    if (!startDate) return 'name is required'
+    if (!startDate) return 'startDate is required'
 
-    if (!endDate) return 'price is required'
+    if (!endDate) return 'endDate is required'
 
-    if (items.some(_item => _item.startDate === startDate && _item.endDate === endDate)) return 'name already exists'
+    if (items.some(_item => _item.startDate === startDate && _item.endDate === endDate)) return 'vacation time already exists'
 }
 
 const db = require('../db/db')('./db/vacations.json', validator)
