@@ -16,21 +16,18 @@ const db = require('../db/db')('./db/vacations.json', validator)
 router.get('/', async (req, res, next) => {
     try {
         const vacations = await db.findAll()
-        res.send(vacations)
+        res.json(vacations)
     } catch (e) {
-        res.sendStatus(404)
-        next(e)
+        res.status(404).json(e)
     }
 })
 
 router.post('/', async (req, res, next) => {
     try {
         const vacation = await db.create(req.body)
-        res.sendStatus(201)
-        res.send(vacation)
+        res.status(201).json(vacation)
     } catch (e) {
-        res.sendStatus(400)
-        next(e)
+        res.status(400).json(e)
     }
 })
 
@@ -39,7 +36,7 @@ router.delete('/:id', async (req, res, next) => {
         await db.destroy(req.params.id)
         res.send()
     } catch (e) {
-        next(e)
+        res.status(400).json(e)
     }
 })
 
